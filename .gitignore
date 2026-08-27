@@ -1,0 +1,7 @@
+terraform/terraform.tfvars
+terraform/.terraform/
+*.tfstate
+*.tfstate.*
+devopsphase1_github
+*.pem
+*.ppk
