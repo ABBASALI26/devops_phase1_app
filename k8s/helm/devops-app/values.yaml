@@ -1,0 +1,35 @@
+
+replicaCount: 2
+
+image:
+  repository: devops-phase1-app
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 8000
+  targetPort: 8000
+  nodePort: 30081
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+probes:
+  readiness:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  liveness:
+    initialDelaySeconds: 15
+    periodSeconds: 20
+config:
+  APP_NAME: "DevOps Phase 2"
+  APP_ENV: "development"
+  APP_PORT: "8000"
+secret:
+  DB_USERNAME: "devopsuser"
+  DB_PASSWORD: "demo-password"

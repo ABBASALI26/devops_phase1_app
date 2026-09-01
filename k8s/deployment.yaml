@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-phase2-app
+  labels:
+    app: devops-phase2-app
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: devops-phase2-app
+
+  template:
+    metadata:
+      labels:
+        app: devops-phase2-app
+
+    spec:
+      containers:
+        - name: app
+          image: devops-phase1-app:v1
+          imagePullPolicy: IfNotPresent
+
+          envFrom:
+            - configMapRef:
+                name: devops-phase2-config
+            - secretRef:
+                name: devops-phase2-secret
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          ports:
+            - containerPort: 8000
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20

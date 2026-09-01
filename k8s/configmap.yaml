@@ -1,0 +1,10 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devops-phase2-config
+data:
+  APP_NAME: "DevOps Phase 2"
+  APP_ENV: "development"
+  APP_PORT: "8000"
+
